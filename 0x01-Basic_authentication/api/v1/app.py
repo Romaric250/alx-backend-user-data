@@ -14,6 +14,36 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
+auth = None
+
+AUTH_TYPE = os.getenv("AUTH_TYPE")
+
+if AUTH_TYPE == 'auth':
+    from api.v1.auth.auth import Auth
+    auth = Auth()
+elif AUTH_TYPE == 'basic_auth':
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
+
+
+@app.before_request
+def before_request():
+    """
+    before request
+    """
+    if auth is None:
+        pass
+    else:
+        excluded_list = ['/api/v1/status/',
+                         '/api/v1/unauthorized/', '/api/v1/forbidden/']
+
+        if auth.require_auth(request.path, excluded_list):
+            if auth.authorization_header(request) is None:
+                abort(401, description="Unauthorized")
+            if auth.current_user(request) is None:
+                abort(403, description='Forbidden')
+
+
 @app.route("/about", methods=['GET'])
 def Get():
     return "now we are talking like adults"
