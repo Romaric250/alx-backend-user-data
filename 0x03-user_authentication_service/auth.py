@@ -44,6 +44,7 @@ class Auth:
 
         else:
             raise ValueError('User {} already exists'.format(email))
+        return User
 
     def valid_login(self, email: str, password: str) -> bool:
         """ on valid login
