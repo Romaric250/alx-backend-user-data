@@ -18,8 +18,6 @@ def index() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
-
-
 @app.route('/sessions', methods=['POST'])
 def login() -> str:
     """
@@ -37,6 +35,7 @@ def login() -> str:
 
     return resp
 
+
 @app.route('/users', methods=['POST'])
 def users() -> str:
     """ get users from the db
@@ -49,7 +48,6 @@ def users() -> str:
         return jsonify({"email": the_user.email, "message": "user created"})
     except Exception:
         return jsonify({"message": "email already registered"}), 400
-
 
 
 @app.route('/profile', methods=['GET'])
@@ -75,6 +73,8 @@ def logout() -> str:
         abort(403)
     AUTH.destroy_session(the_user.id)
     return redirect('/')
+
+
 @app.route('/reset_password', methods=['POST'])
 def get_reset_password_token() -> str:
     """
