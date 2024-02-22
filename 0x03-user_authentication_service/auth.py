@@ -13,13 +13,7 @@ from typing import Union
 
 
 def _hash_password(password: str) -> str:
-    """ password hashing function
-
-    Args:
-        password (str): description
-
-    Returns:
-        bytes: hashed password
+    """ hash a password
     """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
