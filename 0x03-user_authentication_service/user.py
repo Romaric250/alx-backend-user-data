@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-"""
-This module defines the User class for the user authentication service.
-
-The User class represents a user in the system and contains information such as their email,
-hashed password, session ID, and reset token.
-"""
-
-
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
+
+"""
+This module defines the User class
+
+The User class represents a user in the system
+"""
 
 
 class User(Base):
@@ -18,7 +16,7 @@ class User(Base):
         Base (type): The base class for the SQLAlchemy declarative base.
 
     Attributes:
-        __tablename__ (str): The name of the database table for storing user information.
+        __tablename__ (str): The name of the database table
         id (int): The unique identifier for each user.
         email (str): The email address of the user.
         hashed_password (str): The hashed password of the user.
